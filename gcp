@@ -1,0 +1,11 @@
+If it's an EC2 instance, you'll need the .pem key file.
+
+Run this instead:
+
+bash
+Copy
+Edit
+scp -i /path/to/your-key.pem -r ubuntu@172.31.88.179:/home/ubuntu/file .
+Replace /path/to/your-key.pem with the actual path to your private key (e.g., Livingkey.pem).
+
+Make sure the key has proper permissions:
