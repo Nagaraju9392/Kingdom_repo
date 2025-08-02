@@ -1,0 +1,2 @@
+🧪 If You're Already Root on the Remote Machine
+If you're running this on 172.31.88.179 and want to pull from it, it might be better to do it the other way around — push from the remote:
