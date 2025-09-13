@@ -1,11 +1,61 @@
-If it's an EC2 instance, you'll need the .pem key file.
+---
+version: "3"
+services:
 
-Run this instead:
+  db:
+    container_name: db_cont
+    build: ./database/
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_vol:/var/lib/mysql
+    networks:
+     - db
 
-bash
-Copy
-Edit
-scp -i /path/to/your-key.pem -r ubuntu@172.31.88.179:/home/ubuntu/file .
-Replace /path/to/your-key.pem with the actual path to your private key (e.g., Livingkey.pem).
 
-Make sure the key has proper permissions:
+  auth:
+    container_name: auth_tickets
+    build: ./auth/
+    ports:
+      - "5001:5001"
+    networks:
+     - db
+     - movie
+
+  books:
+    container_name: book_tickets
+    build: ./book/
+    ports:
+      - "5002:5002"
+    networks:
+     - db
+
+  borrow:
+    container_name: borrow_tickets
+    build: ./borrow/
+    ports:
+      - "5003:5003"
+    networks:
+     - db
+
+  appservice:
+    container_name: app_tickets
+    build: .
+    ports:
+      - "5000:5000"
+    networks:
+     - movie
+     - db
+
+
+volumes:
+  db_vol:
+  movie_vol:
+  train_vol:
+
+networks:
+  db:
+    driver: bridge
+  movie:
+    driver: bridge
+
